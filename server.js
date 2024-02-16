@@ -1,5 +1,5 @@
 /********************************************************************************
-* WEB322 – Assignment 02
+* WEB322 – Assignment 03
 *
 * I declare that this assignment is my own work in accordance with Seneca's
 * Academic Integrity Policy:
@@ -8,53 +8,61 @@
 *
 * Name: Abhi Maulikkumar Patel
 * Student ID: 137588224 
-* Date: 02 - 02 - 2024
+* Date: 16 - 02 - 2024
 *
 * Published URL: ___________________________________________________________
 *
 ********************************************************************************/
-
-const express = require('express');
-const app = express();
 const legoData = require("./modules/legoSets");
+const express = require('express'); 
+const app = express(); 
+const HTTP_PORT = process.env.PORT || 2212; 
+const path = require("path");
+app.use(express.static('public')); 
 
-legoData.initialize()
-  .then(() => {
-    
-    app.get("/", (req, res) => {
-      res.send("Assignment 2: Abhi Maulikkumar Patel - Your Student Id: 137588224");
-    });
 
-    app.get("/lego/sets", (req, res) => {
-      const allSets = legoData.getAllSets();
-      res.json(allSets);
-    });
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, "./views/home.html"))
+});
 
-    app.get("/lego/sets/num-demo", (req, res) => {
-      legoData.getSetByNum("701")
-        .then((set) => {
-          res.json(set);
-        })
-        .catch((error) => {
-          res.status(404).send(`Error: Set with number 701 not found. Details: ${error}`);
+app.get('/about', (req, res) => {
+    res.sendFile(path.join(__dirname, "./views/about.html"))
+});
+
+
+app.get('/lego/sets', (req, res) => {
+    if(req.query.theme){
+        legoData.getSetsByTheme(req.query.theme).then((setByNum=>{
+            res.json(setByNum);
+        })).catch(err=>{
+            res.status(404).sendFile(path.join(__dirname, "./views/404.html"))
         });
-    });
-
-    app.get("/lego/sets/theme-demo", (req, res) => {
-      legoData.getSetsByTheme("Outback")
-        .then((sets) => {
-          res.json(sets);
-        })
-        .catch((error) => {
-          res.status(404).send(`Error: No sets found for the theme "Outback". Details: ${error}`);
+    }
+    else{
+        legoData.getAllSets().then((allSets=>{
+            res.json(allSets);
+        })).catch(err=>{
+            res.status(404).sendFile(path.join(__dirname, "./views/404.html"))
         });
-    });
+    }
     
-    const PORT = 2212;
-    app.listen(PORT, () => {
-      console.log(`Port: ${PORT}`);
+});
+
+app.get('/lego/sets/:set_num', (req, res) => {
+    legoData.getSetByNum(req.params.set_num).then((setByNum=>{
+        res.json(setByNum);
+    })).catch(err=>{
+        res.status(404).sendFile(path.join(__dirname, "/views/404.html"))
+
     });
-  })
-  .catch((error) => {
-    console.error("Error: Initialization failed. Details: " + error);
-  });
+});
+
+app.use((req, res, next) => {
+    res.status(404).sendFile(path.join(__dirname, "/views/404.html"))
+});
+
+legoData.initialize().then(()=>{
+    app.listen(HTTP_PORT, () => console.log(`server listening on: ${HTTP_PORT}`));
+}).catch((err)=>{
+    console.log(err);
+})
