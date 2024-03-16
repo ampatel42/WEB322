@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html class="bg-gray-900 text-white font-sans">
+<head>
+    <meta charset="UTF-8">
+    <title>404 - Not found</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <%- include('partials/navbar', {page: ''}) %>
+
+    <div class="text-red-600 text-center m-20">
+        <h2 class="text-4xl mb-10">Oops!<br>404 Error: <%= message %></h2>
+    </div>    
+</body>
+</html>

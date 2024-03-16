@@ -1,54 +1,53 @@
-const setData = require("../data/setData.json");
-const themeData = require("../data/themeData.json");
+const setData = require("../data/setData");
+const themeData = require("../data/themeData");
 
 let sets = [];
 
-async function initialize() {
+function initialize() {
   return new Promise((resolve, reject) => {
-    sets = setData.map((set) => {
-      const theme = themeData.find((theme) => theme.id === set.theme_id).name;
-      return { ...set, theme };
+    setData.forEach(setElement => {
+      let setWithTheme = { ...setElement, theme: themeData.find(themeElement => themeElement.id == setElement.theme_id).name }
+      sets.push(setWithTheme);
+      resolve();
     });
-    if (sets.length > 0) {
-      resolve("Initialization successful");
-    } else {
-      reject("Initialization failed");
-    }
   });
+
 }
 
-async function getAllSets() {
+function getAllSets() {
   return new Promise((resolve, reject) => {
-    if (sets.length > 0) {
-      resolve(sets);
-    } else {
-      reject("No sets found");
-    }
+    resolve(sets);
   });
 }
 
-async function getSetByNum(setNum) {
+function getSetByNum(setNum) {
+
   return new Promise((resolve, reject) => {
-    const set = sets.find((s) => s.set_num === setNum);
-    if (set) {
-      resolve(set);
+    let foundSet = sets.find(s => s.set_num == setNum);
+
+    if (foundSet) {
+      resolve(foundSet)
     } else {
-      reject("Set not found");
+      reject("Unable to find requested set");
     }
+
   });
+
 }
 
-async function getSetsByTheme(theme) {
+function getSetsByTheme(theme) {
+
   return new Promise((resolve, reject) => {
-    const matchingSets = sets.filter((s) =>
-      s.theme.toLowerCase().includes(theme.toLowerCase())
-    );
-    if (matchingSets.length > 0) {
-      resolve(matchingSets);
+    let foundSets = sets.filter(s => s.theme.toUpperCase().includes(theme.toUpperCase()));
+
+    if (foundSets) {
+      resolve(foundSets)
     } else {
-      reject("No sets found for the theme");
+      reject("Unable to find requested sets");
     }
+
   });
+
 }
 
-module.exports = { initialize, getAllSets, getSetByNum, getSetsByTheme };
+module.exports = { initialize, getAllSets, getSetByNum, getSetsByTheme }

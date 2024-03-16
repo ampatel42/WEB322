@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html class="bg-gray-900 text-gray-800 font-sans">
+<head>
+    <meta charset="UTF-8">
+    <title>Lego Collection</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <%- include('partials/navbar', {page: '/'}) %>
+
+    <div class="container mx-auto">
+        <div class="hero bg-gray-800 bg-opacity-75 text-white text-center mt-3 mb-3 p-12 rounded-lg">
+            <div class="mx-auto">
+                <h2 class="text-4xl mb-10">Explore the World of LEGO:<br>Where Creativity Knows No Limits!</h2>
+                <a href="/lego/sets" class="btn bg-red-600 text-white px-8 py-4 rounded-lg text-xl hover:bg-red-700">Start Exploring!</a>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            <div class="card-container flex flex-col">
+                <div class="card bg-white p-6 rounded-lg shadow-md flex-1">
+                    <img src="https://cdn.rebrickable.com/media/sets/trurumble-1.jpg" alt="legoset" class="max-w-full h-auto rounded-lg mb-4">
+                        <h3 class="nameOfSet text-xl text-gray-800 font-semibold">MMicro Rumble Blade</h3>
+                        <p class="desc text-gray-600 pb-6">Nexo Knights Micro Rumble Blade make & take promotion, 23rd/24th April, at Toys'R'Us Stores Australia.</p>
+                    <a href="/lego/sets/TRURUMBLE-1" class="btn2 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">View</a>
+                </div>
+            </div>
+            <div class="card-container flex flex-col">
+                <div class="card bg-white p-6 rounded-lg shadow-md flex-1">
+                    <img src="https://cdn.rebrickable.com/media/sets/vp-1.jpg" alt="legoset"  class="max-w-full h-auto rounded-lg mb-4">
+                    <h3 class="nameOfSet text-xl text-gray-800 font-semibold">Ice Planet Co-Pack of 6814 6879 and 6898 </h3>
+                    <p class="desc text-gray-600 pb-6">LEGO SET VP-1 - Ice Planet Co-Pack of 6814 It was re-released in 1969 as an educational set (322-4). It was never released in Europe</p>
+                    <a href="/lego/sets/VP-1" class="btn2 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">View</a>
+                </div>
+            </div>
+            <div class="card-container flex flex-col">
+                <div class="card bg-white p-6 rounded-lg shadow-md flex-1">
+                    <img src="https://cdn.rebrickable.com/media/sets/vidiyo-tiles-1.jpg" alt="legoset" class="max-w-full h-auto rounded-lg mb-4">
+                    <h3 class="nameOfSet text-xl text-gray-800 font-semibold">VIDIYO Tiles - Database Set</h3>
+                    <p class="desc text-gray-600 pb-6">These are all Tiles that are available in the first and second wave of VIDIYO sets.</p>
+                    <a href="/lego/sets/VIDIYO-TILES-1" class="btn2 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

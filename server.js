@@ -10,59 +10,68 @@
 * Student ID: 137588224 
 * Date: 16 - 02 - 2024
 *
-* Published URL: ___________________________________________________________
+* Published URL: 
 *
 ********************************************************************************/
+
+
 const legoData = require("./modules/legoSets");
-const express = require('express'); 
-const app = express(); 
-const HTTP_PORT = process.env.PORT || 2212; 
-const path = require("path");
+const express = require('express');
+const app = express();
+const path = require('path');
+
+const HTTP_PORT = process.env.PORT || 2212;
+
+app.set('view engine', 'ejs');
 app.use(express.static('public')); 
 
+app.use((req, res, next) => {
+  res.locals.req = req;
+  next();
+});
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, "./views/home.html"))
+  res.render("home");
 });
 
 app.get('/about', (req, res) => {
-    res.sendFile(path.join(__dirname, "./views/about.html"))
+  res.render("about");
 });
 
-
-app.get('/lego/sets', (req, res) => {
-    if(req.query.theme){
-        legoData.getSetsByTheme(req.query.theme).then((setByNum=>{
-            res.json(setByNum);
-        })).catch(err=>{
-            res.status(404).sendFile(path.join(__dirname, "./views/404.html"))
-        });
+app.get('/lego/sets', async (req,res)=>{
+  try {
+    let theme = req.query.theme;
+    let sets;
+    if (theme) {
+      sets = await legoData.getSetsByTheme(theme);
+    } else {
+      sets = await legoData.getAllSets();
     }
-    else{
-        legoData.getAllSets().then((allSets=>{
-            res.json(allSets);
-        })).catch(err=>{
-            res.status(404).sendFile(path.join(__dirname, "./views/404.html"))
-        });
+    if (sets.length === 0) {
+      throw new Error("No LEGO sets found for the specified theme");
     }
-    
+    res.render("sets", { sets: sets, page: '/lego/sets', theme: theme });
+  } catch (err) {
+    res.status(404).render("404", { message: err.message || "Something went wrong while fetching the LEGO set details"});
+  }
 });
 
-app.get('/lego/sets/:set_num', (req, res) => {
-    legoData.getSetByNum(req.params.set_num).then((setByNum=>{
-        res.json(setByNum);
-    })).catch(err=>{
-        res.status(404).sendFile(path.join(__dirname, "/views/404.html"))
-
-    });
+app.get('/lego/sets/:idDemo', async (req,res)=>{
+  let idDemo = req.params.idDemo;
+  try {
+    let set = await legoData.getSetByNum(idDemo);
+    res.render("set", {set: set});
+  } catch (err) {
+    res.status(404).render("404", { message: "It seems the LEGO set you're looking for does not yet exist"});
+  }
 });
 
 app.use((req, res, next) => {
-    res.status(404).sendFile(path.join(__dirname, "/views/404.html"))
+  res.status(404).render("404", { message: "The page you're looking for cannot be found" });
 });
 
 legoData.initialize().then(()=>{
-    app.listen(HTTP_PORT, () => console.log(`server listening on: ${HTTP_PORT}`));
-}).catch((err)=>{
-    console.log(err);
-})
+  app.listen(HTTP_PORT, () => { console.log(`server listening on: http://localhost:${HTTP_PORT}`) });
+});
+
+

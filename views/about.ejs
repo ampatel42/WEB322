@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html class="bg-gray-900 text-white font-sans">
+<head>
+    <meta charset="UTF-8">
+    <title>About</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navbar -->
+    <%- include('partials/navbar', {page: '/about'}) %>
+
+    <div class="container mx-auto">
+        <div class="hero bg-gray-800 bg-opacity-75 text-white text-center mt-8 mb-8 p-12 rounded-lg">
+            <div class="mx-auto">
+                <h2 class="text-4xl mb-4">About Me</h2>
+                <p class="text-2xl">All the info about me</p>
+            </div>        
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="flex justify-center items-center">
+                <div class="w-4/5">
+                    <img src="https://cdn.rebrickable.com/media/sets/001-1.jpg" alt="legoset" class="max-w-full border-white border-5 rounded-lg shadow-md">
+                </div>
+            </div>
+            <div class="flex items-center">
+                <p class="text-lg text-gray-300 pr-8">Hey there! I'm ABHI PATEL, a 3rd-semester student in Seneca College's Computer Programming & Analysis program.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
