@@ -66,6 +66,34 @@ app.get('/lego/sets/:idDemo', async (req,res)=>{
   }
 });
 
+// Add Set Route
+app.get('/lego/addSet', (req, res) => {
+try {
+  res.render("/views/addSet"); }
+  catch (err) {
+    res.status(500).render("500", { message: "It seems Internal Server Error"});
+  }
+});
+
+// Edit Set Route
+app.get('/lego/editSet/:setNum', (req, res) => {
+
+  try {
+  let setNum = req.params.setNum;
+  // Assuming you have an editSet.ejs file for editing a set
+  res.render("editSet", { setNum: setNum }); }
+  catch (err) {
+    res.status(500).render("500", { message: "It seems Internal Server Error"});
+  }
+});
+
+
+// 500 Error Route
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).render('500');
+});
+
 app.use((req, res, next) => {
   res.status(404).render("404", { message: "The page you're looking for cannot be found" });
 });
@@ -73,5 +101,4 @@ app.use((req, res, next) => {
 legoData.initialize().then(()=>{
   app.listen(HTTP_PORT, () => { console.log(`server listening on: http://localhost:${HTTP_PORT}`) });
 });
-
 

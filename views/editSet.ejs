@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html class="bg-gray-900 text-gray-800 font-sans">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit LEGO Set</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <%- include('partials/navbar', {page: ''}) %>
+
+    <div class="container mx-auto">
+        <div class="hero bg-gray-800 bg-opacity-75 text-white text-center mt-8 mb-8 p-12 rounded-lg">
+            <div class="mx-auto">
+                <h2 class="text-4xl mb-4">Edit LEGO Set</h2>
+                <p class="text-2xl">Update the details of the LEGO set below.</p>
+            </div>
+        </div>
+
+        <div class="max-w-lg mx-auto">
+            <form class="bg-gray-800 shadow-md rounded-lg px-8 pt-6 pb-8 mb-4">
+                <div class="mb-4">
+                    <label class="block text-gray-300 text-sm font-bold mb-2" for="setNum">Set Number</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="setNum" type="text" placeholder="Enter Set Number">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-300 text-sm font-bold mb-2" for="setName">Set Name</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="setName" type="text" placeholder="Enter Set Name">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-300 text-sm font-bold mb-2" for="yearReleased">Year Released</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="yearReleased" type="text" placeholder="Enter Year Released">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-300 text-sm font-bold mb-2" for="numParts">Number of Parts</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="numParts" type="text" placeholder="Enter Number of Parts">
+                </div>
+                <div class="mb-6">
+                    <label class="block text-gray-300 text-sm font-bold mb-2" for="theme">Theme</label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="theme" type="text" placeholder="Enter Theme">
+                </div>
+                <div class="flex items-center justify-between">
+                    <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

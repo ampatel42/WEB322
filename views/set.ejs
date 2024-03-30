@@ -1,40 +1,44 @@
 <!DOCTYPE html>
 <html class="bg-gray-900 text-white font-sans">
+
 <head>
     <meta charset="UTF-8">
     <title>About</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
-    <!-- Navbar -->
-    <%- include('partials/navbar', {page: ""}) %>
 
-    <div class="container mx-auto">
-        <div class="hero bg-gray-800 bg-opacity-75 text-white text-center mt-8 mb-8 p-12 rounded-lg">
-            <div class="mx-auto">
-                <h2 class="text-4xl mb-4"><%= set.name %></h2>
-                <p class="text-2xl">Below, you will find detailed information about the <%= set.name %> set</p>
-            </div>        
+<body class="bg-gray-900">
+
+    <!-- Navbar -->
+    <%- include('partials/navbar', {page: ''}) %>
+
+    <div class="container mx-auto py-8">
+        <div class="bg-gray-800 bg-opacity-75 text-white text-center rounded-lg p-12">
+            <h2 class="text-4xl mb-4"><%= set.name %></h2>
+            <p class="text-2xl">Below, you will find detailed information about the <%= set.name %> set</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
             <div class="flex justify-center items-center">
                 <div class="w-4/5">
                     <img src="<%= set.img_url %>" alt="<%= set.name %>" class="max-w-full rounded-lg shadow-md">
                 </div>
             </div>
             <div class="flex flex-col">
-                <p class="text-lg text-gray-300 pr-8">
-                    <span class="font-bold">Set Name:</span> <%= set.name %><br>
-                    <span class="font-bold">Year Released:</span> <%= set.year %><br>
-                    <span class="font-bold">Theme:</span> <%= set.theme %><br>
-                    <span class="font-bold">Number of Parts:</span> <%= set.num_parts %><br>
-                </p>
-                <div id="quote-container" class="text-md text-red-600 pr-8 mt-8 mb-6"></div>
-                <a href="#" onclick="history.back(); return false;" class="btn btn-sm bg-red-600 text-white border-none text-base rounded-md hover:bg-red-700" style="width: max-content;">Return</a>
+                <div class="bg-gray-800 bg-opacity-75 text-white rounded-lg p-8">
+                    <p class="text-lg text-gray-300 mb-6">
+                        <span class="font-bold">Set Name:</span> <%= set.name %><br>
+                        <span class="font-bold">Year Released:</span> <%= set.year %><br>
+                        <span class="font-bold">Theme:</span> <%= set.theme %><br>
+                        <span class="font-bold">Number of Parts:</span> <%= set.num_parts %><br>
+                    </p>
+                    <div id="quote-container" class="text-md text-red-600 mb-6"></div>
+                    <a href="#" onclick="history.back(); return false;" class="btn bg-red-600 text-white text-base rounded-md hover:bg-red-700" style="width: max-content;">Return</a>
+                    <!-- Edit Set Button -->
+                    <a href="/lego/editSet/<%= set.set_num %>" class="btn bg-blue-600 text-white text-base rounded-md hover:bg-blue-700 mt-4" style="width: max-content;">Edit Set</a>
+                </div>
             </div>
         </div>
-        
     </div>
 
     <script>
@@ -53,4 +57,5 @@
         });
     </script>
 </body>
+
 </html>
