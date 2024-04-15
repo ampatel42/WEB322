@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-900 text-gray-800 font-sans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Lego Collection</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gray-900 text-white">
+
+    <!-- Navbar -->
+    <%- include('partials/navbar', {page: '/register' }) %>
+
+    <div class="container mx-auto p-4">
+        <div class="hero bg-gray-800 bg-opacity-75 rounded-lg p-6">
+            <div class="hero-content text-center">
+                <div class="max-w-md">
+                    <h1 class="text-5xl font-bold">Register</h1>
+                    <p class="py-6">Please provide your credentials below</p>
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+        <% if (typeof successMessage != 'undefined') { %>
+        <div class="alert bg-green-500 text-white p-4 rounded-lg flex items-center justify-start">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span><%= successMessage %></span>
+        </div>
+        <br />
+        <a href="/login"
+            class="bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline">
+            Proceed to Log in
+        </a>
+        <% } else { %>
+        <form method="post" action="/register" class="space-y-4">
+            <div class="flex flex-col">
+                <label for="userName" class="text-sm font-semibold text-gray-300">User Name</label>
+                <input id="userName" name="userName" type="text" placeholder="User Name" required
+                    value="<%= typeof userName != 'undefined' ? userName : '' %>"
+                    class="mt-1 p-2 w-full border border-gray-600 rounded-md focus:outline-none focus:ring focus:border-blue-500" />
+            </div>
+
+            <div class="flex flex-col">
+                <label for="password" class="text-sm font-semibold text-gray-300">Password</label>
+                <input id="password" name="password" type="password" placeholder="Password" required
+                    class="mt-1 p-2 w-full border border-gray-600 rounded-md focus:outline-none focus:ring focus:border-blue-500" />
+            </div>
+
+            <div class="flex flex-col">
+                <label for="password2" class="text-sm font-semibold text-gray-300">Confirm Password</label>
+                <input id="password2" name="password2" type="password" placeholder="Confirm Password" required
+                    class="mt-1 p-2 w-full border border-gray-600 rounded-md focus:outline-none focus:ring focus:border-blue-500" />
+            </div>
+
+            <div class="flex flex-col">
+                <label for="email" class="text-sm font-semibold text-gray-300">Email Address</label>
+                <input id="email" name="email" type="email" placeholder="Email Address" required
+                    class="mt-1 p-2 w-full border border-gray-600 rounded-md focus:outline-none focus:ring focus:border-blue-500" />
+            </div>
+
+            <input type="submit"
+                class="bg-green-500 text-white p-2 rounded-md cursor-pointer hover:bg-green-600 focus:outline-none focus:ring focus:border-blue-500"
+                value="Register" />
+        </form>
+
+        <br />
+
+        <% if (typeof errorMessage != 'undefined') { %>
+        <div class="alert bg-red-500 text-white p-4 rounded-lg flex items-center justify-start">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span><%= errorMessage %></span>
+        </div>
+        <% } %>
+        <% } %>
+    </div>
+</body>
+
+</html>
